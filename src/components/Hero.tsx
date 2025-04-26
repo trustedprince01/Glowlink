@@ -94,7 +94,7 @@ export function Hero() {
                     <stat.icon className="h-6 w-6 text-primary" />
                   </div>
                   <p className="font-poppins text-2xl font-bold text-accent">
-                    {stat.prefix}<Counter from={stat.countFrom} to={stat.value} />{stat.suffix}
+                    {stat.prefix}<Counter from={stat.countFrom} to={stat.value} duration={2.5} />{stat.suffix}
                   </p>
                   <p className="text-sm text-gray-600">{stat.label}</p>
                 </motion.div>

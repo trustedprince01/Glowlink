@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,12 +44,16 @@ export function Navbar() {
                   {item}
                 </button>
               ))}
-              <button className="text-accent hover:text-accent/80 transition-colors">
-                Sign In
-              </button>
-              <button className="rounded-full bg-primary px-6 py-2 text-white shadow-sm hover:bg-primary/90 transition-all">
-                Create Your GlowLink
-              </button>
+              <Link to="/login">
+                <button className="text-accent hover:text-accent/80 transition-colors">
+                  Sign In
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="rounded-full bg-primary px-6 py-2 text-white shadow-sm hover:bg-primary/90 transition-all">
+                  Create Your GlowLink
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -76,12 +81,16 @@ export function Navbar() {
                   {item}
                 </button>
               ))}
-              <button className="block w-full rounded-md px-3 py-2 text-left text-accent hover:bg-accent/5">
-                Sign In
-              </button>
-              <button className="mt-2 block w-full rounded-full bg-primary px-6 py-2 text-center text-white shadow-sm hover:bg-primary/90">
-                Create Your GlowLink
-              </button>
+              <Link to="/login">
+                <button className="block w-full rounded-md px-3 py-2 text-left text-accent hover:bg-accent/5">
+                  Sign In
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="mt-2 block w-full rounded-full bg-primary px-6 py-2 text-center text-white shadow-sm hover:bg-primary/90">
+                  Create Your GlowLink
+                </button>
+              </Link>
             </div>
           </div>
         )}
