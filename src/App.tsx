@@ -6,7 +6,11 @@ import { Testimonials } from './components/Testimonials'
 import { Footer } from './components/Footer'
 import { Navbar } from './components/Navbar'
 import { SignUp } from './components/SignUp'
-import { Login } from './components/Login'
+import { Login } from './auth/Login'
+import { Dashboard } from './components/Dashboard'
+import { PublicProfile } from './components/PublicProfile'
+import { Settings } from './components/Settings'
+import { BookAppointment } from './components/BookAppointment'
 
 function App() {
   return (
@@ -30,7 +34,11 @@ function App() {
             </>
           } />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/auth/Login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/PublicProfile" element={<PublicProfile />} />
+          <Route path="/Settings" element={<Settings />} />
+          <Route path="/BookAppointment" element={<BookAppointment />} />
         </Routes>
       </div>
     </Router>
