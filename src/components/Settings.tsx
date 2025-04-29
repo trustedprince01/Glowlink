@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Camera, Plus, X, Save } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -19,6 +19,17 @@ export function Settings() {
     "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=800"
   ])
 
+  // Contact Methods State
+  const [contactMethods, setContactMethods] = useState({ whatsapp: '', instagram: '', other: '' });
+  useEffect(() => {
+    const saved = localStorage.getItem('glowlink_contact_methods');
+    if (saved) setContactMethods(JSON.parse(saved));
+  }, []);
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setContactMethods(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -36,7 +47,7 @@ export function Settings() {
   }
 
   const updateService = (id: string, field: 'name' | 'price', value: string) => {
-    setServices(services.map(service => 
+    setServices(services.map(service =>
       service.id === id ? { ...service, [field]: value } : service
     ))
   }
@@ -54,9 +65,10 @@ export function Settings() {
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log('Saving changes...')
+    e.preventDefault();
+    localStorage.setItem('glowlink_contact_methods', JSON.stringify(contactMethods));
+    // Handle other form submission logic
+    console.log('Saving changes...');
   }
 
   return (
@@ -122,33 +134,43 @@ export function Settings() {
           <h2 className="font-poppins text-xl font-semibold text-gray-900">Contact Information</h2>
           <div className="mt-6 space-y-4">
             <div>
-              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="h-4 w-4 inline" /> WhatsApp Number
+              </label>
               <input
                 type="tel"
                 id="whatsapp"
+                name="whatsapp"
+                value={contactMethods.whatsapp}
+                onChange={handleContactChange}
+                placeholder="e.g. +1234567890"
                 className="mt-1 block w-full rounded-xl border-gray-300 bg-gray-50 px-4 py-3 shadow-sm transition-colors focus:border-primary focus:bg-white focus:ring-primary"
-                placeholder="+1 234 567 8900"
               />
             </div>
             <div>
-              <label htmlFor="instagram" className="block text-sm font-medium text-gray-700">Instagram Username</label>
-              <div className="mt-1 flex rounded-xl bg-gray-50 shadow-sm">
-                <span className="inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-50 px-4 text-gray-500">@</span>
-                <input
-                  type="text"
-                  id="instagram"
-                  className="block w-full rounded-r-xl border-gray-300 bg-gray-50 px-4 py-3 transition-colors focus:border-primary focus:bg-white focus:ring-primary"
-                  placeholder="yourusername"
-                />
-              </div>
+              <label htmlFor="instagram" className="block text-sm font-medium text-gray-700 flex items-center gap-1">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" className="h-4 w-4 inline" /> Instagram Handle
+              </label>
+              <input
+                type="text"
+                id="instagram"
+                name="instagram"
+                value={contactMethods.instagram}
+                onChange={handleContactChange}
+                placeholder="e.g. @yourhandle"
+                className="mt-1 block w-full rounded-xl border-gray-300 bg-gray-50 px-4 py-3 shadow-sm transition-colors focus:border-primary focus:bg-white focus:ring-primary"
+              />
             </div>
             <div>
-              <label htmlFor="website" className="block text-sm font-medium text-gray-700">Website (Optional)</label>
+              <label htmlFor="other" className="block text-sm font-medium text-gray-700">Other (Optional)</label>
               <input
-                type="url"
-                id="website"
+                type="text"
+                id="other"
+                name="other"
+                value={contactMethods.other}
+                onChange={handleContactChange}
+                placeholder="e.g. Telegram, Email, etc."
                 className="mt-1 block w-full rounded-xl border-gray-300 bg-gray-50 px-4 py-3 shadow-sm transition-colors focus:border-primary focus:bg-white focus:ring-primary"
-                placeholder="https://yourwebsite.com"
               />
             </div>
           </div>

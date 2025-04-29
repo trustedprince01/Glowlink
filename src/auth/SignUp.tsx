@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ArrowRight, Camera } from 'lucide-react'
 
-
 const professionOptions = [
   'Hairstylist',
   'Makeup Artist',
